@@ -11,6 +11,10 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         required: true
     },
+    cpf: {
+        type: DataTypes.STRING, 
+        required: true
+    },
     password: {
         type: DataTypes.STRING,
         required: true

@@ -4,15 +4,14 @@ const createUserToken = async(user, req, res) => {
 
     const token = jwt.sign({
         name: user.name,
-        id: user._id
-    }, "HDjqIfsQ6gPcTTL")
+        id: user.id,
+    }, "KErD70A48Ss126jtRPzi")
 
     // return token
-
     res.status(200).json({
         message: "Você está autenticado",
         token: token, 
-        userId: user._id,
+        userId: user.id,
     })
 }
 
