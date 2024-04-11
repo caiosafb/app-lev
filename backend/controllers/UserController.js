@@ -150,7 +150,9 @@ module.exports = class UserController {
 
       const { name, email, cpf, password, confirmpassword} = req.body
 
-      let image = ''
+      if(req.file) {
+        user.image = req.file.filename
+      }
 
       // validations 
 
@@ -169,7 +171,7 @@ module.exports = class UserController {
       const userExists = await User.findOne({where: {email: email}})
 
       if(user.email !== email && userExists) {
-        res.status(422).json({ message: 'Por favor, utilize outro e-mail!'})
+        res.status(422).json({ message: 'Por favor, utilize outro e-mail!' })
         return
       }
 
@@ -180,7 +182,7 @@ module.exports = class UserController {
         return
       }
       
-      user.cpf = email
+      user.cpf = cpf
   
       if (password != confirmpassword) {
         res.status(422).json({ message: 'As senhas não conferem!' })
