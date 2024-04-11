@@ -70,7 +70,7 @@ module.exports = class UserController {
         password: passwordHash})
         await createUserToken(user, req, res)
         } catch(error) {
-            res.status(500).json({message: error})
+            res.status(500).json({ message: error })
         }
     }
 
@@ -123,5 +123,20 @@ module.exports = class UserController {
             currentUser = null
         }
         res.status(200).send(currentUser)
+    }
+
+    static async getUserById(req, res) {
+
+        const id = req.params.id 
+
+        const user = await User.findByPk(id)
+
+        if(!user) {
+          res.status(422).json({
+            message: 'usuário não encontrado',
+          })
+          return
+        }
+        res.status(200).json({ user })
     }
 }
