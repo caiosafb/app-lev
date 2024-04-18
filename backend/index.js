@@ -3,6 +3,7 @@ const cors = require('cors')
 const conn = require('./db/conn')
 const User = require('./models/User')
 const UserRoutes = require('./routes/UserRoutes')
+const axios = require('axios')
 
 const app = express()
 

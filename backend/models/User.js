@@ -23,6 +23,7 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         required: true
     },
+    
 }, { timestamps: true})
  
 
