@@ -138,8 +138,10 @@ const User = db.define('User', {
                 }
             }
         }
-    },
-    timestamps: true
+    }, 
+    timestamps: true, 
+    createdAt: 'createdAt', 
+    updatedAt: 'updatedAt'
 });
 
 module.exports = User;
