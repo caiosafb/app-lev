@@ -1,6 +1,10 @@
 .container {
-    min-height: 60vh;
-    padding: 1em 2em 3em;
-    max-width: 1200px;
-    margin: 0 auto;
+    min-height: 100vh; /* Define uma altura mínima para o container */
+    padding: 1em 2em 3em; /* Remova o preenchimento vertical e mantenha apenas o preenchimento horizontal */
+    max-width: 100%; /* Defina a largura máxima como 100% para ocupar toda a largura da tela */
+    margin: 0 auto; /* Centralize o container na tela */
+    background-image: url('../../assets/imgs/bgregister1.png'); /* Define a imagem de fundo */
+    background-size: 100% 100%; /* Faz com que a imagem de fundo ocupe toda a largura e altura do container */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
 }
+

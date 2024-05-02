@@ -1,0 +1,40 @@
+.form_control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.input_container {
+  position: relative;
+}
+
+.input_container input {
+  width: 80%;
+  height: 30px;
+  padding-left: 30px; /* Adicionando espaço para o ícone */
+  border: none; /* Removendo a borda preta */
+  border-radius: 5px;
+  background-color: #CDDD52;
+  outline: none; /* Removendo o contorno ao focar */
+  box-shadow: none; /* Removendo a sombra ao focar */
+  transition: box-shadow 0.3s ease; /* Adicionando uma transição suave para a sombra ao focar */
+}
+
+.input_container input:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adicionando uma sombra ao focar */
+}
+
+.input_container input::placeholder {
+  color: #98C93E;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Ajuste a posição do ícone conforme necessário */
+  transform: translateY(-50%);
+  height: 15px;
+  width: 15px;
+  color: #98C93E;
+}

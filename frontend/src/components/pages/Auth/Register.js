@@ -1,35 +1,53 @@
 import Input from '../../form/input'
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'; // Importe os ícones necessários
+
+
+import styles from '../../form/Form.module.css'
 
 function Register() {
     function handleChange(e) { }
     return (
-        <section>
-            <h1>Registrar</h1>
+        <div className={styles.container}>
+        <section className={styles.form_container}>
+            <h1>Crie sua conta</h1>
             <form>
                 <Input
-                    text='Nome'
+                    icon={faUser}
                     type="text"
                     name="name"
-                    placeholder="Digite seu nome"
-                    handleOnChang={handleChange}
+                    placeholder="Seu nome"
+                    handleOnChange={handleChange}
                 />
                 <Input
-                    text='E-mail'
+                    icon= {faEnvelope}
                     type="email"
                     name="email"
-                    placeholder="Digite seu e-mail"
-                    handleOnChang={handleChange}
+                    placeholder="Seu e-mail"
+                    handleOnChange={handleChange}
                 />
                 <Input
-                    text='Nome'
-                    type="text"
-                    name="name"
-                    placeholder="Digite seu nome"
-                    handleOnChang={handleChange}
+                    icon={faLock}
+                    type="password"
+                    name="password"
+                    placeholder="Sua senha"
+                    handleOnChange={handleChange}
                 />
-
+                <Input
+                    icon={faLock}
+                    type="password"
+                    name="confirmpassword"
+                    placeholder="Confirme sua senha"
+                    handleOnChange={handleChange}
+                />
+                <input type='submit' value='Cadastrar'/>
             </form>
-        </section>
+            </section>
+            <div className={styles.containersecundary}>
+                <h1>O caminho <br />é a melhor <br />parte.</h1>
+                <p>Junta-se a milhares de ebikers e <br />aproveite ainda mais o caminho.</p>
+                <a href="/login">Voltar para login</a>
+            </div>
+        </div>        
     )
 }
 

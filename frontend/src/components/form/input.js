@@ -1,25 +1,29 @@
-import styles from './Input.module.css'
+import styles from '../form/Input.module.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Input({
+    icon,
     type,
     text,
     name,
-    email,
     placeholder, 
     handleOnChang,
     value, 
 }) {
     return (
-     <div>
-        <label htmlFor={name}>{text}:</label>
+     <div className={styles.form_control}>
+        <label htmlFor={name}>{text}</label>
+        <div className={styles.input_container}> 
+        {icon && <FontAwesomeIcon icon={icon} className={styles.icon}/>}
          <input 
          type={type} 
-         email={name}
+         name={name}
          id={name}
          placeholder={placeholder}
          onChange={handleOnChang}
          value={value}
          />
+         </div>
         </div>
     )
 }
