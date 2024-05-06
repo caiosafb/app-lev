@@ -1,10 +1,18 @@
+/* Container.module.css */
 .container {
-    min-height: 100vh; /* Define uma altura mínima para o container */
-    padding: 1em 2em 3em; /* Remova o preenchimento vertical e mantenha apenas o preenchimento horizontal */
-    max-width: 100%; /* Defina a largura máxima como 100% para ocupar toda a largura da tela */
-    margin: 0 auto; /* Centralize o container na tela */
-    background-image: url('../../assets/imgs/bgregister1.png'); /* Define a imagem de fundo */
-    background-size: 100% 100%; /* Faz com que a imagem de fundo ocupe toda a largura e altura do container */
-    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    min-height: 100vh;
+    padding: 1em 2em 3em;
+    max-width: 100%;
+    margin: 0 auto;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
+/* Estilos específicos de fundo para cada página */
+.bgLogin {
+    background-image: url('../../assets/imgs/bglogin1.png');
+}
+
+.bgRegister {
+    background-image: url('../../assets/imgs/bgregister1.png');
+}

@@ -1,3 +1,5 @@
+/* Input Register */
+
 .form_control {
   display: flex;
   flex-direction: column;
@@ -37,4 +39,48 @@
   height: 15px;
   width: 15px;
   color: #98C93E;
+}
+
+
+/* Input login */
+
+.form_control_login {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.input_container_login {
+  position: relative;
+}
+
+.input_container_login input {
+  width: 80%;
+  height: 30px;
+  padding-left: 30px; /* Adicionando espaço para o ícone */
+  border: none; /* Removendo a borda preta */
+  border-radius: 15px;
+  background-color: #F6F0EA;
+  outline: none; /* Removendo o contorno ao focar */
+  box-shadow: none; /* Removendo a sombra ao focar */
+  transition: box-shadow 0.3s ease; /* Adicionando uma transição suave para a sombra ao focar */
+}
+
+.input_container_login input:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Adicionando uma sombra ao focar */
+}
+
+.input_container_login input::placeholder {
+  color: #98C93E;
+}
+
+.icon_login {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Ajuste a posição do ícone conforme necessário */
+  transform: translateY(-50%);
+  height: 15px;
+  width: 15px;
+  color: #cfc8c8d7;
 }

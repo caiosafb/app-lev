@@ -1,8 +1,8 @@
-import Input from '../../form/input'
+import Input from '../../form/inputRegister'
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'; // Importe os ícones necessários
 
 
-import styles from '../../form/Form.module.css'
+import styles from '../Auth/Register.module.css'
 
 function Register() {
     function handleChange(e) { }
