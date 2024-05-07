@@ -56,8 +56,9 @@
 }
 
 .input_container_login input {
-  width: 80%;
+  width: 90%;
   height: 30px;
+  margin-left: 10px;
   padding-left: 30px; /* Adicionando espaço para o ícone */
   border: none; /* Removendo a borda preta */
   border-radius: 15px;
@@ -78,9 +79,10 @@
 .icon_login {
   position: absolute;
   top: 50%;
-  left: 10px; /* Ajuste a posição do ícone conforme necessário */
+  left: 20px; /* Ajuste a posição do ícone conforme necessário */
   transform: translateY(-50%);
   height: 15px;
   width: 15px;
   color: #cfc8c8d7;
 }
+

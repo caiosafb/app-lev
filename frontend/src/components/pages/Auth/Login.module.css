@@ -10,7 +10,7 @@
     max-width: 400px;
     border: none;
     height: 350px;
-    margin-top: 50px;
+    margin-top: 200px;
     background-color: #B0D24B;
     border-radius: 15px;
     display: flex; /* Alterado para display: flex; */
@@ -41,5 +41,29 @@
     font-size: 1.5em;
 }
 
+.rodape p {
+    display: flex;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-left: 2em;
+    color: #90AB3D;
+}
+
+.rodape span {
+    display: flex;
+    font-size: 0.8em;
+    display: flex;
+    color: #FFF;
+    margin-left: 1em;
+    margin-top: 1em;
+    justify-content: center;
+}
+
+.rodape a {
+    font-size: 1em;
+    text-decoration: none;
+    color: #90AB3D;
+    margin-left: 0.5em;
+}
 
 

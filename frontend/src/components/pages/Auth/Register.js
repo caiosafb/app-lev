@@ -44,7 +44,7 @@ function Register() {
             </section>
             <div className={styles.containersecundary}>
                 <h1>O caminho <br />é a melhor <br />parte.</h1>
-                <p>Junta-se a milhares de ebikers e <br />aproveite ainda mais o caminho.</p>
+                <span>Junta-se a milhares de ebikers e <br />aproveite ainda mais o caminho.</span>
                 <a href="/login">Voltar para login</a>
             </div>
         </div>        

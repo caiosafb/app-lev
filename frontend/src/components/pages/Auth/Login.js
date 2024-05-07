@@ -22,7 +22,11 @@ function Login() {
                     name="password"
                     handleOnChange={handleChange}
                 />
-                <input type='submit' value='ENTRAR'/>
+                <div className={styles.rodape}>
+                <p><a href="">Esqueci minha senha</a></p>
+                <input type='submit' value='ENTRAR'/> 
+                <span>Não tem uma conta?<a href="/register">Registre-se</a></span>
+                </div>
             </form>
             </section>
         </div>        
