@@ -32,6 +32,25 @@
     margin-top: 10px; /* Adicionado espaçamento superior */
 }
 
+.form_container Input[type='text'] {
+    color:#A1C51A;
+
+}
+
+.form_container Input[type='email'] {
+    color:#A1C51A;
+
+}
+
+.form_container Input[type='password'] {
+    color:#A1C51A;
+
+}
+
+.form_container Input[type='confirmpassword'] {
+    color:#A1C51A;
+
+}
 .form_container h1 {
     color: #225DA8;
     font-weight: bold;

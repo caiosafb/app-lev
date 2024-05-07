@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Input from '../../form/inputRegister'
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'; // Importe os ícones necessários
 
@@ -5,12 +7,21 @@ import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'; 
 import styles from '../Auth/Register.module.css'
 
 function Register() {
-    function handleChange(e) { }
+    const [user, setUser] = useState({})
+
+    function handleChange(e) { 
+        setUser({...user, [e.target.name]: e.target.value})
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        console.log(user)
+    }
     return (
         <div className={styles.container}>
         <section className={styles.form_container}>
             <h1>Crie sua conta</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Input
                     icon={faUser}
                     type="text"
@@ -26,6 +37,7 @@ function Register() {
                     handleOnChange={handleChange}
                 />
                 <Input
+      
                     icon={faLock}
                     type="password"
                     name="password"
