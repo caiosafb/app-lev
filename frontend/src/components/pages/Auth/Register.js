@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import Input from '../../form/inputRegister'
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'; // Importe os ícones necessários
@@ -6,8 +6,12 @@ import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'; 
 
 import styles from '../Auth/Register.module.css'
 
+/* contexts */
+import { Context } from '../../../context/UserContext'
+
 function Register() {
     const [user, setUser] = useState({})
+    const { register } = useContext(Context)
 
     function handleChange(e) { 
         setUser({...user, [e.target.name]: e.target.value})
@@ -15,7 +19,7 @@ function Register() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log(user)
+        register(user)
     }
     return (
         <div className={styles.container}>

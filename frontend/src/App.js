@@ -9,9 +9,13 @@ import Login from './components/pages/Auth/Login';
 import Register from './components/pages/Auth/Register';
 import Home from './components/pages/Home';
 
+/* contexts */
+import { UserProvider } from './context/UserContext'
+
 function App() {
     return (
         <Router>
+             <UserProvider>
             <Navbar />
             <Routes>
                 <Route path='/login' element={<Container backgroundImage="login"><Login /></Container>} />
@@ -19,6 +23,7 @@ function App() {
                 <Route path='/' element={<Container backgroundImage="home"><Home /></Container>} />
             </Routes>
             <Footer />
+            </UserProvider>
         </Router>
     );
 }
