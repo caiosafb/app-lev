@@ -12,14 +12,14 @@ import { Context } from '../../../context/UserContext'
 function Register() {
     const [user, setUser] = useState({})
     const { register } = useContext(Context)
-
-    function handleChange(e) { 
-        setUser({...user, [e.target.name]: e.target.value})
+  
+    function handleChange(e) {
+      setUser({ ...user, [e.target.name]: e.target.value })
     }
-
+  
     function handleSubmit(e) {
-        e.preventDefault()
-        register(user)
+      e.preventDefault()
+      Register(user)
     }
     return (
         <div className={styles.container}>

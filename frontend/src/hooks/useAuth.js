@@ -1,19 +1,29 @@
 import api from '../utils/api'
+import { useState } from 'react'; 
+import bus from "../utils/bus";
+import useFlashMessage from '../hooks/useFlashMessage'
 
-import {useState, useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
+import styles from "../components/layout/Message.module.css";
 
 export default function useAuth() {
-    async function register(user) {
-        try {
-            const data = await api.post('/users/register', user).then((response) => {
-                return response.data
-            })
-            console.log(data)
-        } catch(error) {
-            //tratar erro
-            console.log(error)
-        }
+
+   const { setFlashMessage } = useFlashMessage();
+  
+  async function register(user) {
+    let msgText = 'Cadastro realizado com sucesso!'
+    let msgType = 'success'
+
+    try {
+      const data = await api.post('/users/register', user); 
+    } catch (error) {
+      // tratar erro
+      msgText = error.response.data.message
+      msgType = 'error'
     }
-    return {register}
+
+    setFlashMessage(msgText, msgType)
+  }
+
+  return {register}
+
 }
