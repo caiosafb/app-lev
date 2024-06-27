@@ -1,147 +1,83 @@
-const { DataTypes } = require('sequelize');
-const db = require('../db/conn');
+const mongoose = require('../config/db');
+const { Schema } = mongoose;
 
-const User = db.define('User', {
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: 'O nome é obrigatório.'
-            },
-            len: {
-                args: [2, 100],
-                msg: 'O nome deve ter entre 2 e 100 caracteres.'
-            }
-        }
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: [true, 'O nome de usuário é obrigatório.'],
         unique: true,
         validate: {
-            notNull: {
-                msg: 'O email é obrigatório.'
+            validator: function(v) {
+                return /^\S*$/.test(v);
             },
-            isValidEmail(value) {
-                if(!value.includes('@')) {
-                    throw new Error('o email fornecido não é valido')
-                }
-            }
-        }
+            message: props => `${props.value} não deve conter espaços`
+        },
+        minlength: [2, 'O nome deve ter entre 2 e 100 caracteres.'],
+        maxlength: [100, 'O nome deve ter entre 2 e 100 caracteres.']
     },
     cpf: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: [true, 'O CPF é obrigatório.'],
         unique: true,
         validate: {
-            notNull: {
-                msg: 'O CPF é obrigatório.'
+            validator: function(value) {
+                return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value);
             },
-            is: {
-                args: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
-                msg: 'O CPF fornecido não é válido.'
-            }
-        }
-    },
-    phone: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true, // Se desejar que o telefone seja único
-        validate: {
-            notNull: {
-                msg: 'O número de telefone é obrigatório.'
-            },
-            is: {
-                args: /^\(\d{2}\)\s\d{4,5}-\d{4}$/, // Expressão regular para validar o formato do telefone
-                msg: 'O número de telefone fornecido não é válido. O formato deve ser (99) 99999-9999.'
-            }
+            message: 'O CPF fornecido não é válido.'
         }
     },
     type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 'Cliente' // Valor padrão para o campo 'type'
+        type: String,
+        default: 'Cliente'
     },
     companyCode: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 1 // Valor padrão para o campo 'companyCode'
+        type: Number,
+        default: 1
     },
     cep: {
-        type: DataTypes.STRING, 
-        allowNull: false
+        type: String,
     },
     address: {
-        type: DataTypes.STRING,
-        allowNull: true // Permitir que seja preenchido automaticamente pelo CEP
+        type: String,
     },
     number: {
-        type: DataTypes.STRING,
-        allowNull: true // Permitir que seja preenchido automaticamente pelo CEP
+        type: String,
     },
     complement: {
-        type: DataTypes.STRING,
-        allowNull: true // Permitir que seja preenchido automaticamente pelo CEP
+        type: String,
     },
     neighborhood: {
-        type: DataTypes.STRING,
-        allowNull: true // Permitir que seja preenchido automaticamente pelo CEP
+        type: String,
+        required: false
     },
     city: {
-        type: DataTypes.STRING,
-        allowNull: true // Permitir que seja preenchido automaticamente pelo CEP
+        type: String,
+        required: false
     },
     cityCode: {
-        type: DataTypes.INTEGER, // Se for um código de cidade, pode ser INTEGER
-        allowNull: false
+        type: Number,
     },
     birthday: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
+        type: Date,
         validate: {
-            notNull: {
-                msg: 'A data de aniversário é obrigatória.'
+            validator: function(value) {
+                return value instanceof Date && !isNaN(value);
             },
-            isValidDate(value) {
-                if (!value.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                    throw new Error('A data de aniversário deve estar no formato DD-MM-YYYY.');
-                }
-            }
+            message: 'A data de aniversário deve estar no formato AAAA-MM-DD.'
         }
     },
     password: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
         validate: {
-            notNull: {
-                msg: 'A senha é obrigatória.'
+            validator: function(value) {
+                return /^(?=.*[!@#$%^&*()\-_=+{};:,<.>])(?=.*[A-Z])(?=.*[0-9]).{8,}$/.test(value);
             },
-            isSecure(value) {
-                if (!value.match(/^(?=.*[!@#$%^&*()\-_=+{};:,<.>])(?=.*[A-Z])(?=.*[0-9]).{8,}$/)) {
-                    throw new Error('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um caractere especial, uma letra maiúscula e um numeral.');
-                }
-            }
+            message: 'A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um caractere especial, uma letra maiúscula e um numeral.'
         }
-    },
+    }
+}, { timestamps: true });
 
-    confirmPassword: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notNull: {
-                msg: 'A confirmação de senha é obrigatória.'
-            },
-            matchesPassword(value, { req }) {
-                if (value !== req.body.password) {
-                    throw new Error('As senhas não coincidem.');
-                }
-            }
-        }
-    }, 
-    timestamps: true, 
-    createdAt: 'createdAt', 
-    updatedAt: 'updatedAt'
-});
+
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

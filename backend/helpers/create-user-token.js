@@ -1,19 +1,18 @@
-const jwt = require('jsonwebtoken')
+// /backend/helpers/create-user-token.js
+const jwt = require('jsonwebtoken');
 
-const createUserToken = async(user, req, res) => {
+const createUserToken = (user, req, res) => {
+  const token = jwt.sign({
+    id: user._id,
+  }, 'secret', {
+    expiresIn: '7d',
+  });
 
-    const token = jwt.sign({
-        name: user.name,
-        id: user.id,
-    }, "KErD70A48Ss126jtRPzi")
+  res.status(200).json({
+    message: 'Você está autenticado!',
+    token,
+    userId: user._id,
+  });
+};
 
-    // return token
-    res.status(200).json({
-        message: "Você está autenticado",
-        token: token, 
-        userId: user.id,
-    })
-}
-
-module.exports = createUserToken
-
+module.exports = createUserToken;

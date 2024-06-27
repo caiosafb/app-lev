@@ -19,8 +19,7 @@
     padding: 20px; /* Adicionado espaçamento interno */
 }
 
-
-.form_container Input[type='email'] {
+.form_container Input[type='text'] {
     color:#A1C51A;
 
 }

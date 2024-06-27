@@ -1,70 +1,95 @@
-import { useContext, useState } from 'react';
-
-import Input from '../../form/inputRegister'
-import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'; // Importe os ícones necessários
-
-
-import styles from '../Auth/Register.module.css'
-
-/* contexts */
-import { Context } from '../../../context/UserContext'
+import React, { useContext, useState } from 'react';
+import Input from '../../form/inputRegister';
+import { faUser, faLock, faIdCard } from '@fortawesome/free-solid-svg-icons';
+import styles from '../Auth/Register.module.css';
+import { Context } from '../../../context/UserContext';
 
 function Register() {
-    const [user, setUser] = useState({})
-    const { register } = useContext(Context)
-  
-    function handleChange(e) {
-      setUser({ ...user, [e.target.name]: e.target.value })
+  const { register } = useContext(Context);
+  const [formData, setFormData] = useState({
+    name: '',
+    cpf: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      setError('As senhas não coincidem.');
+      return;
     }
-  
-    function handleSubmit(e) {
-      e.preventDefault()
-      Register(user)
+
+    try {
+      await register(formData);
+      setFormData({
+        name: '',
+        cpf: '',
+        password: '',
+        confirmPassword: ''
+      });
+      setError('');
+      // Redirecionar após o registro bem-sucedido
+      // window.location.href = '/login';
+    } catch (error) {
+      console.error('Erro ao registrar:', error);
+      setError('Erro ao registrar usuário. Verifique os dados e tente novamente.');
     }
-    return (
-        <div className={styles.container}>
-        <section className={styles.form_container}>
-            <h1>Crie sua conta</h1>
-            <form onSubmit={handleSubmit}>
-                <Input
-                    icon={faUser}
-                    type="text"
-                    name="name"
-                    placeholder="Seu nome"
-                    handleOnChange={handleChange}
-                />
-                <Input
-                    icon= {faEnvelope}
-                    type="email"
-                    name="email"
-                    placeholder="Seu e-mail"
-                    handleOnChange={handleChange}
-                />
-                <Input
-      
-                    icon={faLock}
-                    type="password"
-                    name="password"
-                    placeholder="Sua senha"
-                    handleOnChange={handleChange}
-                />
-                <Input
-                    icon={faLock}
-                    type="password"
-                    name="confirmpassword"
-                    placeholder="Confirme sua senha"
-                    handleOnChange={handleChange}
-                />
-                <input type='submit' value='Cadastrar'/>
-            </form>
-            </section>
-            <div className={styles.containersecundary}>
-                <h1>O caminho <br />é a melhor <br />parte.</h1>
-                <span>Junta-se a milhares de ebikers e <br />aproveite ainda mais o caminho.</span>
-                <a href="/login">Voltar para login</a>
-            </div>
-        </div>        
-    )
+  };
+
+  return (
+    <div className={styles.container}>
+      <section className={styles.form_container}>
+        <h1>Crie sua conta</h1>
+        <form onSubmit={handleSubmit}>
+          <Input
+            icon={faUser}
+            type="text"
+            name="name"
+            placeholder="Nome de usuário"
+            value={formData.name}
+            handleOnChange={handleChange}
+          />
+          <Input
+            icon={faIdCard}
+            type="text"
+            name="cpf"
+            placeholder="Seu CPF"
+            value={formData.cpf}
+            handleOnChange={handleChange}
+          />
+          <Input
+            icon={faLock}
+            type="password"
+            name="password"
+            placeholder="Sua senha"
+            value={formData.password}
+            handleOnChange={handleChange}
+          />
+          <Input
+            icon={faLock}
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirme sua senha"
+            value={formData.confirmPassword}
+            handleOnChange={handleChange}
+          />
+          <input type="submit" value="Cadastrar" />
+        </form>
+        {error && <p className={styles.error}>{error}</p>}
+      </section>
+      <div className={styles.containersecundary}>
+        <h1>O caminho <br />é a melhor <br />parte.</h1>
+        <span>Junte-se a milhares de ebikers e <br />aproveite ainda mais o caminho.</span>
+        <a href="/login">Voltar para login</a>
+      </div>
+    </div>
+  );
 }
 
-export default Register
+export default Register;
