@@ -10,8 +10,8 @@ function Input({ icon, type, label, name, placeholder, value, handleOnChange }) 
         {icon && <FontAwesomeIcon icon={icon} className={styles.icon} />}
         <input
           type={type}
-          name={name}
-          id={name}
+          name={name} 
+          id={name} 
           placeholder={placeholder}
           value={value}
           onChange={handleOnChange}

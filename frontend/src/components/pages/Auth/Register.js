@@ -7,7 +7,7 @@ import { Context } from '../../../context/UserContext';
 function Register() {
   const { register } = useContext(Context);
   const [formData, setFormData] = useState({
-    name: '',
+    username: '', // Assegure-se de usar 'username' aqui
     cpf: '',
     password: '',
     confirmPassword: ''
@@ -28,14 +28,14 @@ function Register() {
     try {
       await register(formData);
       setFormData({
-        name: '',
+        username: '', // Assegure-se de usar 'username' aqui
         cpf: '',
         password: '',
         confirmPassword: ''
       });
       setError('');
-      // Redirecionar após o registro bem-sucedido
-      // window.location.href = '/login';
+      
+      window.location.href = '/login';
     } catch (error) {
       console.error('Erro ao registrar:', error);
       setError('Erro ao registrar usuário. Verifique os dados e tente novamente.');
@@ -50,9 +50,9 @@ function Register() {
           <Input
             icon={faUser}
             type="text"
-            name="name"
+            name="username" 
             placeholder="Nome de usuário"
-            value={formData.name}
+            value={formData.username} 
             handleOnChange={handleChange}
           />
           <Input

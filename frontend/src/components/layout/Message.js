@@ -7,7 +7,7 @@ function Message() {
     const [visibility, setVisibility] = useState(false)
     const [message, setMessage] = useState('')
     const [type, setType] = useState('')
-
+ 
     useEffect(() => {
         bus.addListener('flash', ({message, type}) => {
             setVisibility(true)

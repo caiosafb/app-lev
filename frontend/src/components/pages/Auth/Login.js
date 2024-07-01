@@ -1,34 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Input from '../../form/inputLogin';
+import { Link } from 'react-router-dom';
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
+
+import { Context } from '../../../context/UserContext';
+
 import styles from '../Auth/Login.module.css';
-import { login } from '../../../services/api';
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [user, setUser] = useState({
+    username: '',
+    password: ''
+  });
+  const { login } = useContext(Context);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'username') {
-      setUsername(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
-  };
+  function handleChange(e) {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const data = await login(username, password);
-      
-      localStorage.setItem('userToken', data.token);
-      window.location.href = '/home';
-    } catch (error) {
-      setError('Erro ao fazer login. Verifique suas credenciais e tente novamente.');
-    }
-  };
+    login(user);
+  }
 
   return (
     <div className={styles.container}>
@@ -39,23 +32,21 @@ function Login() {
             type="text"
             name="username"
             placeholder="Nome de usuário"
-            value={username}
             handleOnChange={handleChange}
+            value={user.username}
           />
           <Input
             icon={faLock}
             type="password"
             name="password"
             placeholder="Sua senha"
-            value={password}
             handleOnChange={handleChange}
+            value={user.password}
           />
           <div className={styles.rodape}>
-            <p><a href="">Esqueci minha senha</a></p>
-            <input type='submit' value='ENTRAR' />
-            <span>Não tem uma conta?<a href="/register">Registre-se</a></span>
+            <input type="submit" value="ENTRAR" />
+            <span>Não tem conta? <Link to="/register">Clique aqui.</Link></span>
           </div>
-          {error && <p className={styles.error}>{error}</p>}
         </form>
       </section>
     </div>

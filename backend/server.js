@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const userRoutes = require('./routes/UserRoutes');
 require('dotenv').config();
 
@@ -7,7 +8,10 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api', userRoutes);
+// Solve CORS
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+
+app.use('/users', userRoutes);
 
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
