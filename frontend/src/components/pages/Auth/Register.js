@@ -3,15 +3,17 @@ import Input from '../../form/inputRegister';
 import { faUser, faLock, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import styles from '../Auth/Register.module.css';
 import { Context } from '../../../context/UserContext';
+import useCPF from '../../../hooks/useCpf'; 
 
 function Register() {
   const { register } = useContext(Context);
   const [formData, setFormData] = useState({
-    username: '', // Assegure-se de usar 'username' aqui
+    name: '',
     cpf: '',
     password: '',
     confirmPassword: ''
   });
+  const [cpf, handleCPFChange] = useCPF('');
   const [error, setError] = useState('');
 
   const handleChange = (e) => {
@@ -26,16 +28,15 @@ function Register() {
     }
 
     try {
-      await register(formData);
+      await register({ ...formData, cpf }); 
       setFormData({
-        username: '', // Assegure-se de usar 'username' aqui
+        name: '',
         cpf: '',
         password: '',
         confirmPassword: ''
       });
       setError('');
-      
-      window.location.href = '/login';
+       window.location.href = '/login';
     } catch (error) {
       console.error('Erro ao registrar:', error);
       setError('Erro ao registrar usuário. Verifique os dados e tente novamente.');
@@ -50,9 +51,9 @@ function Register() {
           <Input
             icon={faUser}
             type="text"
-            name="username" 
+            name="name"
             placeholder="Nome de usuário"
-            value={formData.username} 
+            value={formData.name}
             handleOnChange={handleChange}
           />
           <Input
@@ -60,8 +61,8 @@ function Register() {
             type="text"
             name="cpf"
             placeholder="Seu CPF"
-            value={formData.cpf}
-            handleOnChange={handleChange}
+            value={cpf}
+            handleOnChange={handleCPFChange} 
           />
           <Input
             icon={faLock}
