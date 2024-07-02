@@ -1,21 +1,30 @@
 .message {
-    max-width: 40%;
-    padding: 1em;
-    border: 1px solid #000;
-    margin: 1.2em auto 0;
-    margin-bottom: 1.2em;
-    text-align: center;
-    border-radius: 5px;
+  max-width: 80%; /* Ajuste para o tamanho desejado */
+  padding: 1em;
+  border: 1px solid #000;
+  margin: 1.2em auto 0;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* Media Query para Responsividade */
+
+@media (max-width: 768px) {
+  .message {
+      max-width: 90%; /* Ajuste para o tamanho desejado em telas menores */
+      margin: 1em auto; /* Centraliza o elemento */
+      font-size: 0.9em; /* Reduz o tamanho da fonte para melhor legibilidade */
   }
-  
-  .success {
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-  }
-  
-  .error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-  }
+}

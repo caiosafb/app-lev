@@ -7,3 +7,13 @@
     color: #444;
     border-top: 1px solid #666;
 }
+
+/* Media Queries para Responsividade */
+
+@media (max-width: 768px) {
+    .footer {
+        height: auto; /* Ajusta a altura automaticamente conforme o conteúdo */
+        padding: 10px; /* Adiciona um espaço interno para melhor legibilidade */
+        text-align: center; /* Centraliza o texto */
+    }
+}

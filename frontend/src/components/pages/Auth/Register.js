@@ -8,8 +8,7 @@ import useCPF from '../../../hooks/useCpf';
 function Register() {
   const { register } = useContext(Context);
   const [formData, setFormData] = useState({
-    name: '',
-    cpf: '',
+    username: '', 
     password: '',
     confirmPassword: ''
   });
@@ -30,13 +29,13 @@ function Register() {
     try {
       await register({ ...formData, cpf }); 
       setFormData({
-        name: '',
+        username: '',
         cpf: '',
         password: '',
         confirmPassword: ''
       });
       setError('');
-       window.location.href = '/login';
+      window.location.href = '/login';
     } catch (error) {
       console.error('Erro ao registrar:', error);
       setError('Erro ao registrar usuário. Verifique os dados e tente novamente.');
@@ -51,9 +50,9 @@ function Register() {
           <Input
             icon={faUser}
             type="text"
-            name="name"
+            name="username"
             placeholder="Nome de usuário"
-            value={formData.name}
+            value={formData.username}
             handleOnChange={handleChange}
           />
           <Input

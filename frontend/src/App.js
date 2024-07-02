@@ -14,12 +14,12 @@ import Register from './components/pages/Auth/Register';
 import Home from './components/pages/Home';
 
 /* context */
-import { UserProvider } from './context/UserContext'; // Importe corretamente UserProvider
+import { UserProvider } from './context/UserContext';
 
 function App() {
     return (
         <Router>
-            <UserProvider> {UserProvider}
+            <UserProvider>
                 <Navbar />
                 <Message />
                 <Routes>

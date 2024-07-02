@@ -4,50 +4,58 @@ import { useNavigate } from 'react-router-dom';
 import useFlashMessage from '../hooks/useFlashMessage';
 
 export default function useAuth() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const { setFlashMessage } = useFlashMessage();
-  const history = useNavigate();
+   const [authenticated, setAuthenticated] = useState(false);
+   const { setFlashMessage } = useFlashMessage();
+   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+   useEffect(() => {
+      const token = localStorage.getItem('token');
 
-    if (token) {
-      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-      setAuthenticated(true);
-    }
-  }, []);
+      if (token) {
+        api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+        setAuthenticated(true);
+      }
+   }, []);
 
-  async function register(user) {
-    try {
-      const response = await api.post('/users/register', user);
-      const data = response.data;
+   async function register(user) {
+     let msgText = 'Cadastro realizado com sucesso!';
+     let msgType = 'success';
 
-      await authUser(data);
-      setFlashMessage('Cadastro realizado com sucesso!', 'success');
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Ocorreu um erro no cadastro';
-      setFlashMessage(errorMessage, 'error');
-    }
-  }
+     try {
+       const data = await api.post('/users/register', user).then((response) => response.data);
+       await authUser(data);
+     } catch (error) {
+       msgText = error.response?.data?.message || 'Ocorreu um erro no cadastro';
+       msgType = 'error';
+     }
 
-  async function login(user) {
-    try {
-      const response = await api.post('/users/login', user);
-      const data = response.data;
+     setFlashMessage(msgText, msgType);
+   }
 
-      await authUser(data);
-      setFlashMessage('Login realizado com sucesso!', 'success');
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Ocorreu um erro no login';
-      setFlashMessage(errorMessage, 'error');
-    }
-  }
+   async function login(user) {
+     let msgText = 'Login realizado com sucesso!';
+     let msgType = 'success';
 
-  async function authUser(data) {
-    setAuthenticated(true);
-    localStorage.setItem('token', JSON.stringify(data.token));
-    history('/');
-  }
+     try {
+       const data = await api.post('/users/login', user).then((response) => response.data);
+       if (data) {
+         await authUser(data);
+       } else {
+         throw new Error('Dados de login inválidos');
+       }
+     } catch (error) {
+       msgText = error.response?.data?.message || 'Ocorreu um erro no login';
+       msgType = 'error';
+     }
 
-  return { authenticated, register, login };
+     setFlashMessage(msgText, msgType);
+   }
+
+   async function authUser(data) {
+     setAuthenticated(true);
+     localStorage.setItem('token', JSON.stringify(data.token));
+     navigate('/');
+   }
+
+   return { authenticated, register, login };
 }

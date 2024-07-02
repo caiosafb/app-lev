@@ -1,9 +1,12 @@
+/* Container principal */
 .container {
     display: flex;
+    justify-content: center;
     margin-right: 20px; /* Adicione margem à direita para criar espaço */
     margin-left: 20px; /* Adicione margem à esquerda para criar espaço */
 }
 
+/* Formulário principal */
 .form_container {
     flex: 1;
     max-width: 500px;
@@ -18,6 +21,7 @@
     padding: 20px; /* Adicionado espaçamento interno */
 }
 
+/* Estilos para inputs */
 .form_container input[type='submit'] {
     border-radius: 8px;
     background-color: #93B93D;
@@ -32,25 +36,13 @@
     margin-top: 10px; /* Adicionado espaçamento superior */
 }
 
-.form_container Input[type='text'] {
-    color:#A1C51A;
-
+.form_container input[type='text'],
+.form_container input[type='email'],
+.form_container input[type='password'],
+.form_container input[type='confirmpassword'] {
+    color: #A1C51A;
 }
 
-.form_container Input[type='email'] {
-    color:#A1C51A;
-
-}
-
-.form_container Input[type='password'] {
-    color:#A1C51A;
-
-}
-
-.form_container Input[type='confirmpassword'] {
-    color:#A1C51A;
-
-}
 .form_container h1 {
     color: #225DA8;
     font-weight: bold;
@@ -59,6 +51,7 @@
     font-size: 1.5em;
 }
 
+/* Container secundário */
 .containersecundary {
     flex: 1;
     max-width: 500px;
@@ -96,3 +89,93 @@
     text-decoration: none;
 }
 
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+    .container {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .form_container {
+        max-width: 100%;
+        height: auto;
+        margin-top: 30px;
+        padding: 15px;
+    }
+
+    .form_container input[type='submit'] {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .form_container h1 {
+        font-size: 1.2em;
+        margin-bottom: 1.5em;
+    }
+
+    .containersecundary {
+        max-width: 100%;
+        height: auto;
+        margin-top: 2em;
+        margin-left: 2em;
+        padding: 15px;
+    }
+
+    .containersecundary h1 {
+        font-size: 2.5em;
+        margin-top: 1.5em;
+        margin-left: 0;
+    }
+
+    .containersecundary span,
+    .containersecundary a {
+        margin-left: 0;
+        margin-top: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .form_container {
+        max-width: 100%;
+        height: auto;
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .form_container input[type='submit'] {
+        font-size: 1em;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .form_container h1 {
+        font-size: 1.2em;
+        margin-bottom: 1em;
+    }
+
+    .containersecundary {
+        max-width: 100%;
+        height: auto;
+        margin-top: 1em;
+        margin-left: 1em;
+        padding: 10px;
+    }
+
+    .containersecundary h1 {
+        font-size: 2em;
+        margin-top: 1em;
+        margin-left: 0;
+    }
+
+    .containersecundary span,
+    .containersecundary a {
+        margin-left: 0;
+        margin-top: 0.5em;
+    }
+}

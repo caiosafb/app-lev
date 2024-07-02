@@ -41,7 +41,6 @@
   color: #98C93E;
 }
 
-
 /* Input login */
 
 .form_control_login {
@@ -86,3 +85,32 @@
   color: #cfc8c8d7;
 }
 
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+  .input_container input,
+  .input_container_login input {
+    width: 100%;
+  }
+
+  .form_control,
+  .form_control_login {
+    margin-left: 0;
+  }
+
+  .input_container_login input {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .input_container input,
+  .input_container_login input {
+    padding-left: 25px; /* Reduzindo espaço para ícone em telas menores */
+  }
+
+  .icon,
+  .icon_login {
+    left: 5px; /* Ajustando posição do ícone em telas menores */
+  }
+}

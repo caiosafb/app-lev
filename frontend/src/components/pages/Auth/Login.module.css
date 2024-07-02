@@ -1,3 +1,4 @@
+/* Container principal */
 .container {
     display: flex;
     justify-content: center;
@@ -20,15 +21,12 @@
 }
 
 .form_container Input[type='text'] {
-    color:#A1C51A;
-
+    color: #A1C51A;
 }
 
 .form_container Input[type='password'] {
-    color:#A1C51A;
-
+    color: #A1C51A;
 }
-
 
 .form_container input[type='submit'] {
     border-radius: 15px;
@@ -63,7 +61,6 @@
 .rodape span {
     display: flex;
     font-size: 0.8em;
-    display: flex;
     color: #FFF;
     margin-left: 1em;
     margin-top: 1em;
@@ -77,4 +74,77 @@
     margin-left: 0.5em;
 }
 
+/* Media Queries for Responsiveness */
 
+@media (max-width: 768px) {
+    .container {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .form_container {
+        max-width: 100%;
+        margin-top: 50px;
+        padding: 15px;
+    }
+
+    .form_container input[type='submit'] {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .rodape p,
+    .rodape span {
+        font-size: 0.9em;
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .form_control,
+    .form_control_login {
+        margin-left: 0;
+    }
+
+    .input_container input,
+    .input_container_login input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .form_container {
+        height: auto;
+        padding: 10px;
+    }
+
+    .form_container input[type='submit'] {
+        font-size: 1em;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .form_container h1 {
+        font-size: 1.2em;
+        margin-bottom: 1em;
+    }
+
+    .rodape p,
+    .rodape span {
+        font-size: 0.8em;
+    }
+
+    .input_container input,
+    .input_container_login input {
+        padding-left: 25px; /* Reduzindo espaço para ícone em telas menores */
+    }
+
+    .icon,
+    .icon_login {
+        left: 5px; /* Ajustando posição do ícone em telas menores */
+    }
+}

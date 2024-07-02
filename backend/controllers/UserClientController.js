@@ -20,7 +20,7 @@ module.exports = class UserClientController {
     console.log('Received registration data:', req.body);
 
     // Validação do nome de usuário
-    const usernameRegex = /^[a-zA-Z0-9_]{2,100}$/;
+    const usernameRegex = /^[a-z0-9._]+$/;
 
     if (typeof username !== 'string' || !username.match(usernameRegex)) {
       return res.status(400).json({ message: 'Username inválido' });
