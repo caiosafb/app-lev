@@ -53,9 +53,23 @@ export default function useAuth() {
 
    async function authUser(data) {
      setAuthenticated(true);
+
      localStorage.setItem('token', JSON.stringify(data.token));
-     navigate('/');
+     
+     navigate('/home');
    }
 
-   return { authenticated, register, login };
+   function logout() {
+    const msgText = 'Logout realizado com sucesso!'
+    const msgType = 'sucess'
+
+    setAuthenticated(false)
+    localStorage.removeItem('token')
+    api.defaults.headers.Authorization = undefined;
+    navigate('/')
+
+    setFlashMessage(msgText, msgType)
+   }
+
+   return { authenticated, register, login, logout };
 }

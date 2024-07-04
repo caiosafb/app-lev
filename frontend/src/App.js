@@ -23,9 +23,9 @@ function App() {
                 <Navbar />
                 <Message />
                 <Routes>
-                    <Route path='/login' element={<Container backgroundImage="login"><Login /></Container>} />
+                    <Route path='/' element={<Container backgroundImage="login"><Login /></Container>} />
                     <Route path='/register' element={<Container backgroundImage="register"><Register /></Container>} />
-                    <Route path='/' element={<Container backgroundImage="home"><Home /></Container>} />
+                    <Route path='/home' element={<Container backgroundImage="home"><Home /></Container>} />
                 </Routes>
                 <Footer />
             </UserProvider>
