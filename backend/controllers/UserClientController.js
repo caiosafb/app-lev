@@ -145,4 +145,9 @@ module.exports = class UserClientController {
 
     res.status(200).json({ user })
   }
+
+  static async home(req, res) {
+    
+    res.json({ message: 'Bem-vindo à página inicial!' });
+  }
 }

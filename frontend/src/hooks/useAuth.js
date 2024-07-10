@@ -53,22 +53,21 @@ export default function useAuth() {
 
    async function authUser(data) {
      setAuthenticated(true);
-
      localStorage.setItem('token', JSON.stringify(data.token));
-     
+     api.defaults.headers.Authorization = `Bearer ${data.token}`;
      navigate('/home');
    }
 
    function logout() {
-    const msgText = 'Logout realizado com sucesso!'
-    const msgType = 'sucess'
+     const msgText = 'Logout realizado com sucesso!';
+     const msgType = 'success';
 
-    setAuthenticated(false)
-    localStorage.removeItem('token')
-    api.defaults.headers.Authorization = undefined;
-    navigate('/')
+     setAuthenticated(false);
+     localStorage.removeItem('token');
+     api.defaults.headers.Authorization = undefined;
+     navigate('/login');
 
-    setFlashMessage(msgText, msgType)
+     setFlashMessage(msgText, msgType);
    }
 
    return { authenticated, register, login, logout };
