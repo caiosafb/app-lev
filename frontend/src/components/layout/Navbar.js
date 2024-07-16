@@ -18,9 +18,6 @@ function Navbar() {
             <ul>
                 {authenticated ? (
                     <>
-                        <li>
-                            <Link to="/home">Home</Link>
-                        </li>
                         <li onClick={logout}>Sair</li>
                     </>
                 ) : (

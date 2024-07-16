@@ -1,74 +1,82 @@
-import api from '../utils/api';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useFlashMessage from '../hooks/useFlashMessage';
+import api from '../utils/api';
 
 export default function useAuth() {
-   const [authenticated, setAuthenticated] = useState(false);
-   const { setFlashMessage } = useFlashMessage();
-   const navigate = useNavigate();
+  const [authenticated, setAuthenticated] = useState(false);
+  const { setFlashMessage } = useFlashMessage();
+  const navigate = useNavigate();
 
-   useEffect(() => {
-      const token = localStorage.getItem('token');
+  useEffect(() => {
+    const token = localStorage.getItem('token');
 
-      if (token) {
-        api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
-        setAuthenticated(true);
+    if (token) {
+      api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+      setAuthenticated(true);
+
+    }
+  }, []);
+
+  async function register(user) {
+    let msgText = 'Cadastro realizado com sucesso!';
+    let msgType = 'success';
+
+    try {
+      const data = await api.post('/users/register', user).then((response) => response.data);
+      await authUser(data);
+      setFlashMessage(msgText, msgType);
+      navigate('/login'); // Redireciona para o login após o cadastro
+    } catch (error) {
+      msgText = error.response?.data?.message || 'Ocorreu um erro no cadastro';
+      msgType = 'error';
+      setFlashMessage(msgText, msgType);
+    }
+  }
+
+  async function login(user) {
+    let msgText = 'Login realizado com sucesso!';
+    let msgType = 'success';
+
+    try {
+      const data = await api.post('/users/login', user).then((response) => response.data);
+      if (data) {
+        await authUser(data);
+      } else {
+        throw new Error('Dados de login inválidos');
       }
-   }, []);
+    } catch (error) {
+      msgText = error.response?.data?.message || 'Ocorreu um erro no login';
+      msgType = 'error';
+      setFlashMessage(msgText, msgType);
+    }
 
-   async function register(user) {
-     let msgText = 'Cadastro realizado com sucesso!';
-     let msgType = 'success';
+    setFlashMessage(msgText, msgType);
+  }
 
-     try {
-       const data = await api.post('/users/register', user).then((response) => response.data);
-       await authUser(data);
-     } catch (error) {
-       msgText = error.response?.data?.message || 'Ocorreu um erro no cadastro';
-       msgType = 'error';
-     }
+  async function authUser(data) {
+    setAuthenticated(true);
+    localStorage.setItem('token', JSON.stringify(data.token));
+    api.defaults.headers.Authorization = `Bearer ${data.token}`;
+    navigate('/home');
+  }
 
-     setFlashMessage(msgText, msgType);
-   }
+  function logout() {
+    const msgText = 'Logout realizado com sucesso!';
+    const msgType = 'success';
 
-   async function login(user) {
-     let msgText = 'Login realizado com sucesso!';
-     let msgType = 'success';
+    setAuthenticated(false);
+    localStorage.removeItem('token');
+    api.defaults.headers.Authorization = undefined;
+    navigate('/login');
+    setFlashMessage(msgText, msgType);
+  }
 
-     try {
-       const data = await api.post('/users/login', user).then((response) => response.data);
-       if (data) {
-         await authUser(data);
-       } else {
-         throw new Error('Dados de login inválidos');
-       }
-     } catch (error) {
-       msgText = error.response?.data?.message || 'Ocorreu um erro no login';
-       msgType = 'error';
-     }
 
-     setFlashMessage(msgText, msgType);
-   }
+  function home () {
+    setAuthenticated(true)
+    localStorage.removeItem('token');
+  }
 
-   async function authUser(data) {
-     setAuthenticated(true);
-     localStorage.setItem('token', JSON.stringify(data.token));
-     api.defaults.headers.Authorization = `Bearer ${data.token}`;
-     navigate('/home');
-   }
-
-   function logout() {
-     const msgText = 'Logout realizado com sucesso!';
-     const msgType = 'success';
-
-     setAuthenticated(false);
-     localStorage.removeItem('token');
-     api.defaults.headers.Authorization = undefined;
-     navigate('/login');
-
-     setFlashMessage(msgText, msgType);
-   }
-
-   return { authenticated, register, login, logout };
+  return { authenticated, register, login, logout, home };
 }

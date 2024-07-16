@@ -86,7 +86,7 @@ function Register() {
       <div className={styles.containersecundary}>
         <h1>O caminho <br />é a melhor <br />parte.</h1>
         <span>Junte-se a milhares de ebikers e <br />aproveite ainda mais o caminho.</span>
-        <a href="/">Voltar para login</a>
+        <a href="/login">Voltar para login</a>
       </div>
     </div>
   );
