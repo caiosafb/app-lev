@@ -2,11 +2,11 @@ import React, { useContext, useState } from 'react';
 import Input from '../../form/inputRegister';
 import { faUser, faLock, faIdCard } from '@fortawesome/free-solid-svg-icons';
 import styles from '../Auth/Register.module.css';
-import { Context } from '../../../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 import useCPF from '../../../hooks/useCpf'; 
 
 function Register() {
-  const { register } = useContext(Context);
+  const { register } = useContext(UserContext);
   const [formData, setFormData] = useState({
     username: '', 
     password: '',

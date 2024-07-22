@@ -14,7 +14,6 @@ export default function useAuth() {
     if (token) {
       api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
       setAuthenticated(true);
-
     }
   }, []);
 
@@ -26,7 +25,7 @@ export default function useAuth() {
       const data = await api.post('/users/register', user).then((response) => response.data);
       await authUser(data);
       setFlashMessage(msgText, msgType);
-      navigate('/login'); // Redireciona para o login após o cadastro
+      navigate('/login');
     } catch (error) {
       msgText = error.response?.data?.message || 'Ocorreu um erro no cadastro';
       msgType = 'error';
@@ -58,7 +57,7 @@ export default function useAuth() {
     setAuthenticated(true);
     localStorage.setItem('token', JSON.stringify(data.token));
     api.defaults.headers.Authorization = `Bearer ${data.token}`;
-    navigate('/home');
+    navigate('/');
   }
 
   function logout() {
@@ -75,7 +74,6 @@ export default function useAuth() {
 
   function home () {
     setAuthenticated(true)
-    localStorage.removeItem('token');
   }
 
   return { authenticated, register, login, logout, home };

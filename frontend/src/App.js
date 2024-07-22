@@ -7,30 +7,59 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Container from './components/layout/Container';
 import Message from './components/layout/Message';
+import ProtectedRoute from './components/ProtectedeRoute';
 
 /* pages */
 import Login from './components/pages/Auth/Login';
 import Register from './components/pages/Auth/Register';
-import Home from './components/pages/Home';
+import Home from './components/pages/User/Home';
 
 /* context */
 import { UserProvider } from './context/UserContext';
 
 function App() {
-    return (
-        <Router>
-            <UserProvider>
-                <Navbar />
-                <Message />
-                <Routes>
-                    <Route path='/login' element={<Container backgroundImage="login"><Login /></Container>} />
-                    <Route path='/register' element={<Container backgroundImage="register"><Register /></Container>} />
-                    <Route path='/home' element={<Container backgroundImage="home"><Home /></Container>} />
-                </Routes>
-                <Footer />
-            </UserProvider>
-        </Router>
-    );
+  return (
+    <Router>
+      <UserProvider>
+        <Navbar />
+        <Message />
+        <Routes>
+          {/* Rota para página de Login */}
+          <Route 
+            path="/login" 
+            element={
+              <Container backgroundImage="login">
+                <Login />
+              </Container>
+            } 
+          />
+          
+          {/* Rota para página de Registro */}
+          <Route 
+            path="/register" 
+            element={
+              <Container backgroundImage="register">
+                <Register />
+              </Container>
+            } 
+          />
+
+          {/* Rota protegida para a página Home */}
+          <Route 
+            path="/" 
+            element={
+              <ProtectedRoute>
+                <Container backgroundImage="home">
+                  <Home />
+                </Container>
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
+        <Footer />
+      </UserProvider>
+    </Router>
+  );
 }
 
 export default App;

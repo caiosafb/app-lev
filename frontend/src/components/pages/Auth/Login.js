@@ -3,7 +3,7 @@ import Input from '../../form/inputLogin';
 import { Link } from 'react-router-dom';
 import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
-import { Context } from '../../../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 
 import styles from '../Auth/Login.module.css';
 
@@ -12,7 +12,7 @@ function Login() {
     username: '',
     password: ''
   });
-  const { login } = useContext(Context);
+  const { login } = useContext(UserContext);
 
   function handleChange(e) {
     setUser({ ...user, [e.target.name]: e.target.value });

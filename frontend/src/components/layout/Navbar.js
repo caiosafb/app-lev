@@ -1,15 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
+
 
 import styles from './Navbar.module.css';
 
 import Logo from '../../assets/imgs/logo.png';
 
 /* Context */
-import { Context } from '../../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 function Navbar() {
-    const { authenticated, logout } = useContext(Context);
+    const { authenticated, logout } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        localStorage.removeItem('token');
+        navigate('/login'); 
+      };
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.navbar_logo}>
@@ -18,7 +27,7 @@ function Navbar() {
             <ul>
                 {authenticated ? (
                     <>
-                        <li onClick={logout}>Sair</li>
+                        <li onClick={handleLogout}>Sair</li>
                     </>
                 ) : (
                     <>

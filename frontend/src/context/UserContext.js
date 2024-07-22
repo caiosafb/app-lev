@@ -1,14 +1,15 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 import useAuth from '../hooks/useAuth';
 
-export const Context = createContext();
+// Renomeia o contexto para UserContext
+export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const { authenticated, register, login, logout, home } = useAuth();
+  const { authenticated, register, login, logout } = useAuth();
 
   return (
-    <Context.Provider value={{ authenticated, register, login, logout, home }}>
+    <UserContext.Provider value={{ authenticated, register, login, logout }}>
       {children}
-    </Context.Provider>
+    </UserContext.Provider>
   );
 };

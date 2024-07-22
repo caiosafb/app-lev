@@ -6,7 +6,7 @@ const sankhyaService = require('../services/sankhyaService');
 // helpers
 const createUserToken = require('../helpers/create-user-token');
 const getToken = require('../helpers/get-token');
-const getUserByToken = require('../helpers/get-user-by-token');
+
 
 module.exports = class UserClientController {
   static async register(req, res) {
@@ -19,7 +19,6 @@ module.exports = class UserClientController {
 
     console.log('Received registration data:', req.body);
 
-    // Validação do nome de usuário
     const usernameRegex = /^[a-z0-9._]+$/;
 
     if (typeof username !== 'string' || !username.match(usernameRegex)) {
@@ -117,7 +116,7 @@ module.exports = class UserClientController {
     if (req.headers.authorization) {
 
       const token = getToken(req)
-      const decoded = jwt.verify(token, 'secret')
+      const decoded = jwt.verify(token, 'KErD70A48Ss126jtRPzi')
 
       currentUser = await User.findById(decoded.id)
 
@@ -147,7 +146,25 @@ module.exports = class UserClientController {
   }
 
   static async home(req, res) {
-    
-    res.json({ message: 'Bem-vindo à página inicial!' });
+    try {
+      const token = getToken(req);
+      if (!token) {
+        return res.status(401).json({ message: 'Não autorizado' });
+      }
+      
+      if (!user) {
+        return res.status(404).json({ message: 'Usuário não encontrado' });
+      }
+      
+      const sankhyaLoginData = await sankhyaService.loginToSankhya();
+      const sankhyaToken = sankhyaLoginData.token;
+
+      const bikesData = await sankhyaService.getBikesByCpf(user.cpf, sankhyaToken);
+
+      res.status(200).json(bikesData);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   }
+
 }

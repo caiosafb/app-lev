@@ -12,7 +12,7 @@ router.post('/register', UserClientController.register);
 router.post('/login', UserClientController.login);
 router.get('/user/:id', UserClientController.getUserById);
 router.get('/check-user', UserClientController.checkUser);
-router.get('/home', verifyToken, UserClientController.home)
+router.get('/', verifyToken, UserClientController.home)
 
 
 module.exports = router;
