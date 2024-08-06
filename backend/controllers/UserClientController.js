@@ -146,32 +146,46 @@ module.exports = class UserClientController {
 
   static async home(req, res) {
     try {
-      console.log(0)
+      console.log("Iniciando requisição para a rota home...");
+  
     
-     /* const user = await User.findById('669535c5831ffac7c43a653a').select('-password');
-
-      if (!user) {
-        console.log(1)
-        return res.status(401).json({ message: 'Usuário não encontrado!' });
-      }
-      */
-
-      const sankhyaToken = await sankhyaService.loginToSankhya('16206577759');
-
+      const cpf = req.query.cpf || '35090632871'; 
+      console.log("Buscando token na API Sankhya...");
+  
+      const sankhyaToken = await sankhyaService.loginToSankhya();
+  
       if (!sankhyaToken) {
-        console.log(2)
+        console.error("Falha ao autenticar na API Sankhya");
         return res.status(500).json({ message: 'Falha ao autenticar na API Sankhya' });
       }
-
-      const bikes = await sankhyaService.getBikesByCpf(sankhyaToken, '16206577759');
-
-      if (!bikes) {
-        console.log(3)
+  
+      console.log("Token obtido com sucesso:", sankhyaToken);
+  
+      console.log("Buscando bicicletas na API Sankhya com CPF:", cpf);
+  
+      const bikesResponse = await sankhyaService.getBikesByCpf(sankhyaToken, cpf);
+  
+      console.log("Resposta da API Sankhya:", JSON.stringify(bikesResponse, null, 2));
+  
+      if (!bikesResponse || !bikesResponse.responseBody || !bikesResponse.responseBody.rows) {
+        console.error("Erro ao buscar bikes na API Sankhya");
         return res.status(500).json({ message: 'Erro ao buscar bikes na API Sankhya' });
       }
-
+  
+      const bikes = bikesResponse.responseBody.rows.map(row => ({
+        CODPARC: row[0],
+        NOMEPARC: row[1],
+        AD_EQUIPBIKECOR: row[2],
+        AD_EQUIPCHASSI: row[3],
+        AD_EQUIPMOTOR: row[4],
+        AD_EQUIPBIKECOD: row[5],
+        DESCRPROD: row[6]
+      }));
+  
+      console.log("Bicicletas encontradas:", bikes);
+  
       res.status(200).json({ bikes });
-
+  
     } catch (error) {
       console.error('Erro na rota home:', error);
       res.status(500).json({ message: 'Erro interno do servidor' });
