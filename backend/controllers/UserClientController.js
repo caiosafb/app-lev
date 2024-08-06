@@ -50,14 +50,12 @@ module.exports = class UserClientController {
     if (userExists) {
       return res.status(422).json({ message: 'Por favor, utilize outro nome de usuário!' });
     }
-
-    // Cria o hash da senha
+    
     const salt = await bcrypt.genSalt(12);
     const passwordHash = await bcrypt.hash(password, salt);
 
     console.log('Saving new user:', { username, cpf, passwordHash });
 
-    // Cria o usuário
     const user = new User({
       username,
       cpf,
@@ -117,7 +115,7 @@ module.exports = class UserClientController {
     if (req.headers.authorization) {
 
       const token = getToken(req)
-      const decoded = jwt.verify(token, 'secret')
+      const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
       currentUser = await User.findById(decoded.id)
 
@@ -147,7 +145,36 @@ module.exports = class UserClientController {
   }
 
   static async home(req, res) {
+    try {
+      console.log(0)
     
-    res.json({ message: 'Bem-vindo à página inicial!' });
+     /* const user = await User.findById('669535c5831ffac7c43a653a').select('-password');
+
+      if (!user) {
+        console.log(1)
+        return res.status(401).json({ message: 'Usuário não encontrado!' });
+      }
+      */
+
+      const sankhyaToken = await sankhyaService.loginToSankhya('16206577759');
+
+      if (!sankhyaToken) {
+        console.log(2)
+        return res.status(500).json({ message: 'Falha ao autenticar na API Sankhya' });
+      }
+
+      const bikes = await sankhyaService.getBikesByCpf(sankhyaToken, '16206577759');
+
+      if (!bikes) {
+        console.log(3)
+        return res.status(500).json({ message: 'Erro ao buscar bikes na API Sankhya' });
+      }
+
+      res.status(200).json({ bikes });
+
+    } catch (error) {
+      console.error('Erro na rota home:', error);
+      res.status(500).json({ message: 'Erro interno do servidor' });
+    }
   }
 }

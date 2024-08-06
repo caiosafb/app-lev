@@ -26,7 +26,7 @@ export default function useAuth() {
       const data = await api.post('/users/register', user).then((response) => response.data);
       await authUser(data);
       setFlashMessage(msgText, msgType);
-      navigate('/login'); // Redireciona para o login após o cadastro
+      navigate('/login'); 
     } catch (error) {
       msgText = error.response?.data?.message || 'Ocorreu um erro no cadastro';
       msgType = 'error';
@@ -73,10 +73,11 @@ export default function useAuth() {
   }
 
 
-  function home () {
-    setAuthenticated(true)
-    localStorage.removeItem('token');
-  }
+  function home() {
+  
+  setAuthenticated(true)
+  
+}
 
   return { authenticated, register, login, logout, home };
 }

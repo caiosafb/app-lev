@@ -6,7 +6,7 @@ const getUserByToken = async (token) => {
     throw new Error('Token inválido!');
   }
 
-  const decoded = jwt.verify(token, 'secret');
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const user = await User.findById(decoded.id);
   return user;
 };

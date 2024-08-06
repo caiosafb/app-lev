@@ -7,11 +7,16 @@ const sankhyaApi = axios.create({
 
 async function loginToSankhya() {
   try {
-    const response = await sankhyaApi.post('/login', {
-      username: process.env.SANKHYA_USERNAME,
-      password: process.env.SANKHYA_PASSWORD,
+    const response = await sankhyaApi.post('/login', {}, {
+      headers: {
+        'Appkey': process.env.APP_KEY, 
+        'Token': process.env.TOKEN, 
+        'Username': process.env.SANKHYA_USERNAME, 
+        'Password': process.env.SANKHYA_PASSWORD, 
+      } 
     });
-    return response.data.token;
+    console.log(response.data)
+    return response.data.bearerToken;
   } catch (error) {
     console.error('Erro ao fazer login no Sankhya:', error.message);
     throw error; 
@@ -37,7 +42,7 @@ async function getBikesByCpf(token, cpf) {
         'Content-Type': 'application/json',
       },
     });
-
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Erro ao obter bicicletas por CPF:', error.message);
